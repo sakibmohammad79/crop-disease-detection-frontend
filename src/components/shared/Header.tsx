@@ -12,10 +12,10 @@ const Header = () => {
           </div>
           <div className="space-x-4">
             <Button variant="ghost" asChild>
-              <Link href="/auth/login">Login</Link>
+              <Link href="/login">Login</Link>
             </Button>
             <Button asChild>
-              <Link href="/auth/register">Get Started</Link>
+              <Link href="/register">Get Started</Link>
             </Button>
           </div>
         </nav>
