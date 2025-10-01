@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Leaf, Users, Shield, Zap } from 'lucide-react'
+import { Users, Shield, Zap } from 'lucide-react'
 import Header from '@/components/shared/Header'
 import Footer from '@/components/shared/Footer'
 
@@ -28,6 +28,8 @@ export default function LandingPage() {
           </Button>
         </div>
       </section>
+
+     
 
       {/* Features */}
       <section className="container mx-auto px-4 py-20">
@@ -71,8 +73,28 @@ export default function LandingPage() {
         </div>
       </section>
 
+       {/* CTA Section */}
+      {/* <section className=" px-16 py-16">
+        <Card className="mx-auto  bg-primary text-primary-foreground">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl">Ready to Protect Your Crops?</CardTitle>
+            <CardDescription className="text-primary-foreground/80">
+              Join thousands of farmers using AI to save their harvest
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="text-center">
+            <Button size="lg" variant="secondary" asChild>
+              <Link href="/auth/register">
+                Start Your Free Trial
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+      </section> */}
+
       {/* Footer */}
       <Footer/>
     </div>
+    
   )
 }
