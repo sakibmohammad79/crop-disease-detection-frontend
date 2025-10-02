@@ -13,6 +13,9 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { cropOptions, irrigationTypeOptions, soilTypeOptions } from '@/types'
+import { registerFarmer } from '@/services/actions/registerFarmer'
+import { storeUserInfo } from '@/services/authServices'
+import { loginFarmer } from '@/services/actions/loginFarmer'
 
 const RegisterPage = () => {
   const router = useRouter()
@@ -176,19 +179,30 @@ const RegisterPage = () => {
     }
 
     try {
-      // TODO: API call যখন backend ready হবে
-      console.log('Register Data:', registerData)
+    const res = await registerFarmer(registerData);
+    if (!res.success) {
+      if(res.message == "Duplicate entry found"){
+        toast.error("This email already registered. Please try another!");
+      }
+      else{
+        toast.error(res.message || "Registration failed.");
+      }
+      return;
+    }
+    const result = await loginFarmer({
+      email: registerData.email,
+      password: registerData.password,
+    });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-
-      toast.success('Registration Successful! Your farmer account has been created.')
-
-      // Redirect to login
-      router.push('/login')
+    if(result?.data?.accessToken) {
+      storeUserInfo(result.data.accessToken);
+      toast.success(res.message || "Registration successful!");
+      router.push("/");
+    }
     } catch (error: any) {
-      toast.error(error.message || 'Registration failed. Please try again.')
-    } finally {
+      toast.error(error.message || "Unexpected error occurred");
+    }
+    finally {
       setLoading(false)
     }
   }
