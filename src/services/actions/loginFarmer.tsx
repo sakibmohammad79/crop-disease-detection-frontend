@@ -1,4 +1,5 @@
 import { FieldValues } from "react-hook-form";
+import setAccessToken from "./setAccessToken";
 
 export const loginFarmer = async(data: FieldValues) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/login`,{
@@ -13,5 +14,10 @@ export const loginFarmer = async(data: FieldValues) => {
 
     const userInfo = await res.json();
 
-    return userInfo;
+  if (userInfo?.data?.accessToken) {
+    setAccessToken(userInfo?.data?.accessToken, { redirect: "/" });
+  }
+
+  return userInfo;
+
 }

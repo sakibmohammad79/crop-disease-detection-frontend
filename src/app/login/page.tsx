@@ -12,8 +12,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { loginFarmer } from '@/services/actions/loginFarmer'
-import { useRouter } from 'next/navigation'
-import { storeUserInfo } from '@/services/authServices'
+
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -22,9 +21,9 @@ const loginSchema = z.object({
 
 type LoginFormData = z.infer<typeof loginSchema>
 
+
 const LoginPage = () => {
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   const {
     register,
@@ -38,11 +37,8 @@ const LoginPage = () => {
     setLoading(true)
     try {
       const res = await loginFarmer(data);
-      console.log(res);
       if (res?.success) {
-        storeUserInfo(res?.data?.accessToken);
-        toast.success(`${res?.message}. Welcome back, mohammad!`);
-        router.push('/');
+        toast.success(`${res?.message}, Welcome back!`);
        }
       else{
         toast.error(res?.message || "Invalid credentials")

@@ -3,7 +3,6 @@ import { authKey } from "@/constant";
 import { decodedToken } from "@/utils/jwt";
 import { getFromLocalStorage, removeFormLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 
-
 export const storeUserInfo = (accessToken: string) => {
   return setToLocalStorage(authKey, accessToken);
 };
