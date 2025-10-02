@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { toast } from 'sonner'
 import { loginFarmer } from '@/services/actions/loginFarmer'
 import { useRouter } from 'next/navigation'
+import { storeUserInfo } from '@/services/authServices'
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -39,9 +40,8 @@ const LoginPage = () => {
       const res = await loginFarmer(data);
       console.log(res);
       if (res?.success) {
-        const{accessToken} = res?.data
-        console.log(accessToken);
-        toast.success(`Welcome back, mohammad!`);
+        storeUserInfo(res?.data?.accessToken);
+        toast.success(`${res?.message}. Welcome back, mohammad!`);
         router.push('/');
        }
       else{
