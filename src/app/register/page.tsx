@@ -14,7 +14,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { cropOptions, irrigationTypeOptions, soilTypeOptions } from '@/types'
 import { registerFarmer } from '@/services/actions/registerFarmer'
-import { storeUserInfo } from '@/services/authServices'
+
 import { loginFarmer } from '@/services/actions/loginFarmer'
 
 const RegisterPage = () => {
@@ -195,7 +195,6 @@ const RegisterPage = () => {
     });
 
     if(result?.data?.accessToken) {
-      storeUserInfo(result.data.accessToken);
       toast.success(res.message || "Registration successful!");
       router.push("/");
     }

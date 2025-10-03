@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { loginFarmer } from '@/services/actions/loginFarmer'
-
+import { storeUserInfo } from '@/services/authServices'
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -32,16 +32,16 @@ const LoginPage = () => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   })
+ 
 
   const onSubmit = async (data: LoginFormData) => {
+
     setLoading(true)
     try {
       const res = await loginFarmer(data);
       if (res?.success) {
         toast.success(`${res?.message}, Welcome back!`);
-       }
-      else{
-        toast.error(res?.message || "Invalid credentials")
+        storeUserInfo(res?.data?.accessToken);
       }
     } catch (error: any) {
       toast.error(error.res.message || "Invalid credentials");

@@ -17,8 +17,11 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 // import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 // import { logout } from '@/lib/store/slices/authSlice'
-// import { useRouter } from 'next/navigation'
-import { getuserInfo } from '@/services/authServices'
+import { useRouter } from 'next/navigation'
+
+import { logOutUser } from '@/services/actions/logOutUser'
+import { getUserInfo } from '@/services/authServices'
+
 
 const farmerNavItems = [
   {
@@ -53,18 +56,17 @@ const farmerNavItems = [
   },
 ]
 
-export function Sidebar() {
-  const pathname = usePathname()
-  const user = getuserInfo();
+export  function Sidebar() {
+  const pathname =  usePathname()
+  const user =  getUserInfo();
 
 //   const dispatch = useAppDispatch()
-//   const router = useRouter()
+  const router = useRouter()
 //   const { user } = useAppSelector((state) => state.auth)
 
-//   const handleLogout = () => {
-//     dispatch(logout())
-//     router.push('/auth/login')
-//   }
+  const handleLogout = () => {
+    logOutUser(router);
+  }
 
   return (
     <div className="flex h-full w-64 flex-col border-r bg-card">
@@ -82,7 +84,7 @@ export function Sidebar() {
           <Avatar>
             <AvatarImage src={user?.profileImage} />
             <AvatarFallback className="bg-primary text-primary-foreground">
-              {user?.name?.charAt(0) || 'F'}
+              {user?.role?.charAt(0) || 'F'}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 overflow-hidden">
@@ -120,7 +122,7 @@ export function Sidebar() {
         <Button
           variant="ghost"
           className="w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
-        //   onClick={handleLogout}
+          onClick={handleLogout}
         >
           <LogOut className="mr-3 h-4 w-4" />
           Logout
