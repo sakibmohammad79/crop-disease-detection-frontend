@@ -36,7 +36,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 
-export default function FieldsPage() {
+const FieldsPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [filterCrop, setFilterCrop] = useState('all')
 
@@ -297,3 +297,5 @@ export default function FieldsPage() {
     </div>
   )
 }
+
+export default FieldsPage;
