@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 
-export default function FarmerDashboardPage() {
+const FarmerDashboardPage = () => {
   // Mock data - Backend থেকে আসবে
   const stats = {
     totalFields: 5,
@@ -262,3 +262,5 @@ export default function FarmerDashboardPage() {
     </div>
   )
 }
+
+export default FarmerDashboardPage
